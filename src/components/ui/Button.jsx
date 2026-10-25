@@ -11,6 +11,7 @@ const sizes = { md: 'h-10 px-4 text-sm', lg: 'h-12 px-6 text-base' }
 
 export default function Button({
   to,
+  href,
   variant = 'primary',
   size = 'md',
   loading = false,
@@ -25,6 +26,13 @@ export default function Button({
     sizes[size],
     className,
   )
+  if (href) {
+    return (
+      <a href={href} target="_blank" rel="noreferrer" className={classes} {...props}>
+        {children}
+      </a>
+    )
+  }
   if (to) {
     return (
       <Link to={to} className={classes} {...props}>

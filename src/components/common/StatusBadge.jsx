@@ -10,6 +10,7 @@ const STATUS = {
   needs_reconnect: ['warning', 'Reconnect needed'],
   error: ['danger', 'Error'],
   not_connected: ['neutral', 'Not connected'],
+  pending: ['warning', 'Waiting for Start'],
   planned: ['info', 'Planned'],
   delivered: ['success', 'Delivered'],
   failed: ['danger', 'Failed'],
