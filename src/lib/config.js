@@ -10,3 +10,6 @@ export const PLAN = {
 }
 
 export const APP_NAME = 'MailPing'
+
+// Placeholder contact address. Replace with the real support mailbox before launch.
+export const SUPPORT_EMAIL = 'support@example.com'

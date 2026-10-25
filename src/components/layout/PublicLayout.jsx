@@ -1,6 +1,7 @@
 import { Link, Outlet } from 'react-router-dom'
 import Logo from '../common/Logo'
 import Button from '../ui/Button'
+import { SUPPORT_EMAIL } from '../../lib/config'
 
 export default function PublicLayout() {
   return (
@@ -28,7 +29,7 @@ export default function PublicLayout() {
           <nav aria-label="Legal" className="flex gap-5">
             <Link to="/privacy" className="hover:text-ink">Privacy Policy</Link>
             <Link to="/terms" className="hover:text-ink">Terms</Link>
-            <a href="mailto:support@example.com" className="hover:text-ink">Contact</a>
+            <a href={`mailto:${SUPPORT_EMAIL}`} className="hover:text-ink">Contact</a>
           </nav>
         </div>
       </footer>

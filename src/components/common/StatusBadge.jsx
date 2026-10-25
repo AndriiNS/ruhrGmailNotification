@@ -3,6 +3,7 @@ import Badge from '../ui/Badge'
 const STATUS = {
   active: ['success', 'Active'],
   trial: ['info', 'Trial'],
+  canceling: ['warning', 'Cancels at period end'],
   payment_required: ['warning', 'Payment required'],
   expired: ['danger', 'Expired'],
   none: ['neutral', 'Not subscribed'],
