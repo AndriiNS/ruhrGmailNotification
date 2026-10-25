@@ -13,8 +13,10 @@ import IntegrationsPage from './pages/IntegrationsPage'
 import BillingPage from './pages/BillingPage'
 import SettingsPage from './pages/SettingsPage'
 import NotFoundPage from './pages/NotFoundPage'
+import VerifyEmailPage from './pages/VerifyEmailPage'
+import RequireAuth from './components/layout/RequireAuth'
 
-// Route guard for /app/* is added together with real auth (Supabase) later.
+// /app/* is guarded by RequireAuth. In demo mode the session is a mock (see services/auth).
 export default function App() {
   return (
     <Routes>
@@ -23,15 +25,18 @@ export default function App() {
         <Route path="login" element={<LoginPage />} />
         <Route path="signup" element={<SignupPage />} />
         <Route path="forgot-password" element={<ForgotPasswordPage />} />
+        <Route path="verify-email" element={<VerifyEmailPage />} />
         <Route path="privacy" element={<PrivacyPage />} />
         <Route path="terms" element={<TermsPage />} />
       </Route>
-      <Route path="app" element={<AppLayout />}>
-        <Route index element={<DashboardPage />} />
-        <Route path="mailboxes" element={<MailboxesPage />} />
-        <Route path="integrations" element={<IntegrationsPage />} />
-        <Route path="billing" element={<BillingPage />} />
-        <Route path="settings" element={<SettingsPage />} />
+      <Route element={<RequireAuth />}>
+        <Route path="app" element={<AppLayout />}>
+          <Route index element={<DashboardPage />} />
+          <Route path="mailboxes" element={<MailboxesPage />} />
+          <Route path="integrations" element={<IntegrationsPage />} />
+          <Route path="billing" element={<BillingPage />} />
+          <Route path="settings" element={<SettingsPage />} />
+        </Route>
       </Route>
       <Route element={<PublicLayout />}>
         <Route path="*" element={<NotFoundPage />} />

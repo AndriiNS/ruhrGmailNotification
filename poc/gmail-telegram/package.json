@@ -1,0 +1,16 @@
+{
+  "name": "gmail-telegram-poc",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "description": "Local proof of concept: new Gmail messages -> Telegram. Not production code.",
+  "engines": { "node": ">=20.6" },
+  "scripts": {
+    "telegram:chat-id": "node --env-file=.env scripts/telegram-chat-id.js",
+    "telegram:test": "node --env-file=.env scripts/telegram-send.js",
+    "gmail:auth": "node --env-file=.env scripts/gmail-auth.js",
+    "monitor": "node --env-file=.env scripts/monitor.js",
+    "state:reset": "node -e \"require('node:fs').rmSync('data/state.json',{force:true})\"",
+    "test": "node --test"
+  }
+}

@@ -1,4 +1,6 @@
-import { NavLink, Outlet } from 'react-router-dom'
+import { NavLink, Outlet, useNavigate } from 'react-router-dom'
+import { useAuth } from '../../hooks/useAuth'
+import Button from '../ui/Button'
 import Logo from '../common/Logo'
 import DemoBanner from '../common/DemoBanner'
 import { cn } from '../../lib/cn'
@@ -29,6 +31,12 @@ function AppLink({ to, label, end }) {
 }
 
 export default function AppLayout() {
+  const { user, signOut } = useAuth()
+  const navigate = useNavigate()
+  async function onSignOut() {
+    await signOut()
+    navigate('/', { replace: true })
+  }
   return (
     <div className="flex min-h-screen flex-col bg-surface">
       <DemoBanner />
@@ -38,6 +46,10 @@ export default function AppLayout() {
           <nav aria-label="Account" className="hidden gap-1 md:flex">
             {links.map((l) => <AppLink key={l.to} {...l} />)}
           </nav>
+          <div className="flex items-center gap-3">
+            <span className="hidden max-w-48 truncate text-sm text-muted sm:block">{user?.email}</span>
+            <Button variant="secondary" onClick={onSignOut}>Sign out</Button>
+          </div>
         </div>
         <nav
           aria-label="Account mobile"

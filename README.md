@@ -14,3 +14,6 @@ Stack: React + Vite (JavaScript), Tailwind CSS v4, React Router.
 ## Status
 Stage 0+1 done: scaffold, design tokens, UI kit, layouts, routes with placeholder pages.
 All data is demo data (`VITE_DEMO_MODE`). No real integrations yet.
+
+## Proof of concept
+`poc/gmail-telegram/` — local Gmail → Telegram experiment (separate from the frontend). See its README and `poc-gmail-telegram.md`.

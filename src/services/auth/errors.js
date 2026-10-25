@@ -1,0 +1,16 @@
+export class AuthServiceError extends Error {
+  constructor(code) {
+    super(code)
+    this.code = code
+  }
+}
+
+const messages = {
+  invalid_credentials: 'The email or password is incorrect. Check them and try again.',
+  email_taken: 'An account with this email already exists. Sign in instead.',
+  network: 'We could not reach the server. Check your connection and try again.',
+  not_configured: 'Authentication is not set up yet.',
+}
+
+export const authErrorMessage = (code) =>
+  messages[code] || 'Something went wrong. Try again in a moment.'

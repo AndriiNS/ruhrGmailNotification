@@ -22,3 +22,12 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Secrets and local data (never commit)
+.env
+.env.*
+!.env.example
+poc/**/data/
+poc/**/.env
+client_secret*.json
+tokens.json
