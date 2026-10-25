@@ -43,6 +43,9 @@ export const mockAuth = {
     await delay()
     simulate(email)
   },
+  async updatePassword() {
+    await delay()
+  },
   async signOut() {
     sessionStorage.removeItem(KEY)
   },

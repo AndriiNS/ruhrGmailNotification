@@ -14,6 +14,7 @@ import BillingPage from './pages/BillingPage'
 import SettingsPage from './pages/SettingsPage'
 import NotFoundPage from './pages/NotFoundPage'
 import VerifyEmailPage from './pages/VerifyEmailPage'
+import ResetPasswordPage from './pages/ResetPasswordPage'
 import RequireAuth from './components/layout/RequireAuth'
 
 // /app/* is guarded by RequireAuth. In demo mode the session is a mock (see services/auth).
@@ -26,6 +27,7 @@ export default function App() {
         <Route path="signup" element={<SignupPage />} />
         <Route path="forgot-password" element={<ForgotPasswordPage />} />
         <Route path="verify-email" element={<VerifyEmailPage />} />
+        <Route path="reset-password" element={<ResetPasswordPage />} />
         <Route path="privacy" element={<PrivacyPage />} />
         <Route path="terms" element={<TermsPage />} />
       </Route>

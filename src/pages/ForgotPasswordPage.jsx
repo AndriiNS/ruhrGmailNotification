@@ -7,7 +7,7 @@ import Input from '../components/ui/Input'
 import { useAuth } from '../hooks/useAuth'
 import { authErrorMessage } from '../services/auth/errors'
 import { validateEmail } from '../lib/validation'
-import { DEMO_MODE } from '../lib/config'
+import { AUTH_DEMO } from '../lib/config'
 
 export default function ForgotPasswordPage() {
   const { requestPasswordReset } = useAuth()
@@ -43,7 +43,7 @@ export default function ForgotPasswordPage() {
     >
       {done ? (
         <FormMessage tone="success">
-          {DEMO_MODE
+          {AUTH_DEMO
             ? 'Demo mode: no email was sent.'
             : 'If an account exists for this address, a reset link is on its way. Check your inbox and spam folder.'}
         </FormMessage>

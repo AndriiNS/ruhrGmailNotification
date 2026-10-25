@@ -28,6 +28,11 @@ Replace the mock with a real implementation (Supabase, Gmail OAuth via backend, 
 Stripe Checkout/Portal) without changing the UI. Mock data lives in `src/data`.
 The backend must enforce all limits and statuses; the UI only displays them.
 
+## Backend and database
+`server/` is the Node/Express backend; Supabase (project `mailping`) provides Postgres and Auth.
+See `server/README.md`. With `VITE_SUPABASE_URL` and `VITE_SUPABASE_PUBLISHABLE_KEY` set in `.env.local`,
+sign-in and sign-up use real Supabase Auth; the other screens still show labelled demo data.
+
 ## Proof of concept
 `poc/gmail-telegram/` — local Gmail → Telegram experiment (separate from the frontend).
 See its README and `poc-gmail-telegram.md`.

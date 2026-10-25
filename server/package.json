@@ -1,0 +1,20 @@
+{
+  "name": "mailping-server",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "description": "MailPing backend: verifies Supabase users and (later) runs Gmail, Telegram and Stripe integrations.",
+  "engines": {
+    "node": ">=20.6"
+  },
+  "scripts": {
+    "dev": "node --watch --env-file=.env src/index.js",
+    "start": "node --env-file=.env src/index.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "2.118.0",
+    "cors": "2.8.6",
+    "express": "5.3.0"
+  }
+}

@@ -5,7 +5,7 @@ import FormMessage from '../components/common/FormMessage'
 import Button from '../components/ui/Button'
 import { useAuth } from '../hooks/useAuth'
 import { authErrorMessage } from '../services/auth/errors'
-import { DEMO_MODE } from '../lib/config'
+import { AUTH_DEMO } from '../lib/config'
 
 const COOLDOWN_SECONDS = 30
 
@@ -27,7 +27,7 @@ export default function VerifyEmailPage() {
     setMessage({ tone: 'success', text: '' })
     try {
       await resendVerification(email)
-      setMessage({ tone: 'success', text: DEMO_MODE ? 'Demo mode: no email was sent.' : 'A new verification link was sent.' })
+      setMessage({ tone: 'success', text: AUTH_DEMO ? 'Demo mode: no email was sent.' : 'A new verification link was sent.' })
       setCooldown(COOLDOWN_SECONDS)
     } catch (err) {
       setMessage({ tone: 'error', text: authErrorMessage(err.code) })
@@ -47,7 +47,7 @@ export default function VerifyEmailPage() {
   return (
     <AuthCard
       title="Check your inbox"
-      description={DEMO_MODE ? `In the live service we will email a verification link to ${email}. In demo mode no email is sent.` : `We sent a verification link to ${email}. Open it to activate your account.`}
+      description={AUTH_DEMO ? `In the live service we will email a verification link to ${email}. In demo mode no email is sent.` : `We sent a verification link to ${email}. Open it to activate your account.`}
       footer={<>Wrong address? <Link to="/signup" className="font-semibold text-brand">Start again</Link></>}
     >
       <div className="space-y-4">

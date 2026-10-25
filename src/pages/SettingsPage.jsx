@@ -10,7 +10,7 @@ import { useAuth } from '../hooks/useAuth'
 import { accountService } from '../services/account'
 import { accountErrorMessage } from '../services/account/errors'
 import { authErrorMessage } from '../services/auth/errors'
-import { DEMO_MODE, SUPPORT_EMAIL } from '../lib/config'
+import { AUTH_DEMO, SUPPORT_EMAIL } from '../lib/config'
 
 export default function SettingsPage() {
   const { user, signOut, requestPasswordReset } = useAuth()
@@ -52,7 +52,7 @@ export default function SettingsPage() {
     setResetMsg({ tone: 'success', text: '' })
     try {
       await requestPasswordReset(user.email)
-      setResetMsg({ tone: 'success', text: DEMO_MODE ? 'Demo mode: no email was sent.' : 'We sent a password reset link to your email.' })
+      setResetMsg({ tone: 'success', text: AUTH_DEMO ? 'Demo mode: no email was sent.' : 'We sent a password reset link to your email.' })
     } catch (e) {
       setResetMsg({ tone: 'error', text: authErrorMessage(e.code) })
     } finally {

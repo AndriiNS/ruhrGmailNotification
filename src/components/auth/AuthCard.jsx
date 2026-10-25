@@ -1,5 +1,5 @@
 import Card from '../ui/Card'
-import { DEMO_MODE } from '../../lib/config'
+import { AUTH_DEMO } from '../../lib/config'
 
 export default function AuthCard({ title, description, children, footer }) {
   return (
@@ -7,7 +7,7 @@ export default function AuthCard({ title, description, children, footer }) {
       <Card>
         <h1 className="text-2xl font-bold tracking-tight">{title}</h1>
         {description && <p className="mt-2 text-muted">{description}</p>}
-        {DEMO_MODE && (
+        {AUTH_DEMO && (
           <p role="note" className="mt-4 rounded-control bg-warn-soft px-3 py-2 text-xs text-warn">
             <strong>Demo mode.</strong> No real account is created or checked. Any valid email works.
             To preview errors, start the email with wrong@, taken@ or error@.
