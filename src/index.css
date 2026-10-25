@@ -1,0 +1,42 @@
+@import "tailwindcss";
+@import "@fontsource-variable/figtree";
+
+@theme {
+  --font-sans: "Figtree Variable", ui-sans-serif, system-ui, sans-serif;
+
+  --color-paper: #ffffff;
+  --color-surface: #f5f7fa;
+  --color-line: #e2e7ef;
+  --color-ink: #0e1a33;
+  --color-muted: #55617a;
+  --color-brand: #2350e0;
+  --color-brand-dark: #1a3dae;
+  --color-brand-soft: #e8eefd;
+  --color-ok: #146c43;
+  --color-ok-soft: #e3f4ea;
+  --color-warn: #8a5300;
+  --color-warn-soft: #fdf1dc;
+  --color-bad: #a4262c;
+  --color-bad-soft: #fbe8e9;
+
+  --radius-control: 0.5rem;
+  --radius-panel: 0.875rem;
+  --shadow-panel: 0 1px 2px rgb(14 26 51 / 0.06);
+  --shadow-overlay: 0 12px 40px rgb(14 26 51 / 0.18);
+}
+
+@layer base {
+  body {
+    @apply bg-paper font-sans text-ink antialiased;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-brand;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
