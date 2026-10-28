@@ -17,6 +17,16 @@ export function useChannels() {
     }
   }, [attempt])
 
+  const pending = channels?.telegram.status === 'pending'
+  const refresh = useCallback(() => channelService.list().then(setChannels).catch(() => {}), [])
+
+  // While waiting for the user to press Start in Telegram, check the status every few seconds.
+  useEffect(() => {
+    if (!pending) return
+    const timer = setInterval(refresh, 3000)
+    return () => clearInterval(timer)
+  }, [pending, refresh])
+
   const retry = useCallback(() => {
     setLoadError(false)
     setChannels(null)
@@ -29,8 +39,6 @@ export function useChannels() {
     setChannels(result.channels ?? result)
     return result
   }, [])
-  const refresh = useCallback(() => channelService.list().then(setChannels).catch(() => {}), [])
-
   return {
     channels,
     loadError,

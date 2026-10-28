@@ -58,6 +58,11 @@ export default function TelegramCard({ telegram, actions }) {
             <li>Come back here. This page updates once Telegram confirms the chat.</li>
           </ol>
           {pendingUrl && <Button href={pendingUrl} className="mt-4">Open Telegram</Button>}
+          {!pendingUrl && !demoActive && (
+            <p className="mt-4 text-sm text-muted">
+              The link is shown only once. Cancel and start again to get a new link.
+            </p>
+          )}
           {demoActive && (
             <div className="mt-4 rounded-control bg-warn-soft p-3 text-sm text-warn">
               <p><strong>Demo mode.</strong> There is no real bot link. This button only pretends you pressed Start.</p>

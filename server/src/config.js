@@ -10,6 +10,7 @@ export function loadConfig(env = process.env) {
     port: Number(env.PORT || 3001),
     supabaseUrl: env.SUPABASE_URL.trim(),
     supabaseSecretKey: env.SUPABASE_SECRET_KEY.trim(), // service role: bypasses RLS, server only
+    telegramToken: env.TELEGRAM_BOT_TOKEN?.trim() || '', // optional; enables the Telegram integration
     corsOrigin: (env.CORS_ORIGIN || 'http://localhost:5173').trim(),
   }
 }

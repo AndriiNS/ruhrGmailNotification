@@ -25,3 +25,11 @@ keep it only in `server/.env`, never in the frontend, Git or chats.
 ## Routes
 - `GET /health` public
 - `GET /api/me` requires `Authorization: Bearer <Supabase access token>`
+- `POST /api/telegram/connect` creates a one-time link `t.me/<bot>?start=<token>` (valid 15 min; only its hash is stored)
+- `POST /api/telegram/cancel`, `/disconnect`, `/test` (sends a real message to the connected chat)
+- All `/api/telegram/*` routes need the Bearer token; without `TELEGRAM_BOT_TOKEN` they answer 503.
+
+## Telegram
+The server long-polls the bot for `/start <token>` messages (no public URL needed locally), so only one
+process may poll a bot at a time. Do not run `npm run telegram:chat-id` from the PoC while the server runs.
+Add `TELEGRAM_BOT_TOKEN` to `server/.env`.
