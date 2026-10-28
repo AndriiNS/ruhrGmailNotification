@@ -21,7 +21,7 @@ const features = [
 const faqs = [
   { q: 'Which email providers work?', a: 'Gmail is supported first. Outlook and other providers are planned, but availability depends on what each provider allows third-party apps to do.' },
   { q: 'What can MailPing see in my mailbox?', a: 'Only message details: sender, subject and time. We cannot read message text or attachments, and we cannot send, change or delete mail.' },
-  { q: 'What happens to the sender and subject?', a: 'They are sent to your Telegram chat. That means they pass through Telegram’s servers, so consider this before connecting a very sensitive mailbox.' },
+  { q: 'What happens to the sender and subject?', a: 'They are sent to your Telegram chat, so they pass through Telegram’s servers. Consider this before connecting a very sensitive mailbox. We do not store the sender or subject; we keep only a delivery record (message ID and result) for 7 days.' },
   { q: 'Do I need to give you my password?', a: 'No. You sign in on Google’s own page and can revoke access at any time in your Google account settings.' },
   { q: 'How do I cancel?', a: 'Cancel from the billing page whenever you like. Your alerts continue until the end of the paid period.' },
   { q: 'How do I set it up?', a: 'Create an account, connect a Gmail mailbox, then open our Telegram bot and press Start. Setup takes a few minutes.' },

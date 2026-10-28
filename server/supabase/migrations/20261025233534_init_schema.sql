@@ -151,8 +151,9 @@ alter table public.stripe_events enable row level security;
 revoke all on public.stripe_events from anon, authenticated;
 
 ------------------------------------------------------------------------------
--- notification_log: delivery results and de-duplication. Deliberately stores NO sender, subject
--- or body: only the Gmail message id (needed to avoid duplicates) and the outcome.
+-- notification_log: delivery results, de-duplication and the "recent notifications" list.
+-- Deliberately stores NO sender, subject or body: only the Gmail message id (needed to avoid
+-- duplicates), the channel and the outcome. A daily job below deletes rows older than 7 days.
 ------------------------------------------------------------------------------
 create table public.notification_log (
   id bigint generated always as identity primary key,
@@ -172,4 +173,13 @@ create policy "notification_log_select_own" on public.notification_log for selec
   using ((select auth.uid()) = user_id);
 
 revoke all on public.notification_log from anon, authenticated;
-grant select (id, mailbox_id, channel, status, error_code, created_at) on public.notification_log to authenticated;
+grant select (id, mailbox_id, channel, status, error_code, created_at)
+  on public.notification_log to authenticated;
+
+-- Retention: delete rows older than 7 days, every day at 03:17 UTC.
+create extension if not exists pg_cron with schema pg_catalog;
+select cron.schedule(
+  'purge-notification-log',
+  '17 3 * * *',
+  $cron$delete from public.notification_log where created_at < now() - interval '7 days'$cron$
+);

@@ -104,7 +104,7 @@ export default function SettingsPage() {
           <Card aria-labelledby="priv-title">
             <h2 id="priv-title" className="text-lg font-bold">Privacy and data</h2>
             <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-muted">
-              <li>MailPing can see the sender, subject and time of new emails. It cannot read message text or attachments, and it cannot send, change or delete mail.</li>
+              <li>MailPing can see the sender, subject and time of new emails. It cannot read message text or attachments, and it cannot send, change or delete mail. Sender and subject are not stored; delivery records are kept for 7 days.</li>
               <li>
                 You can withdraw Google access at any time in your{' '}
                 <a href="https://myaccount.google.com/permissions" target="_blank" rel="noreferrer" className="font-semibold text-brand">Google account permissions</a>.

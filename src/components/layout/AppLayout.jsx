@@ -1,6 +1,7 @@
 import { NavLink, Outlet, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../hooks/useAuth'
 import Button from '../ui/Button'
+import SiteFooter from './SiteFooter'
 import Logo from '../common/Logo'
 import DemoBanner from '../common/DemoBanner'
 import { cn } from '../../lib/cn'
@@ -61,6 +62,7 @@ export default function AppLayout() {
       <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-8">
         <Outlet />
       </main>
+      <SiteFooter />
     </div>
   )
 }

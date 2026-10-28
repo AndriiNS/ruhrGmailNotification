@@ -17,8 +17,7 @@ export default function ActivityCard({ activity }) {
           {activity.map((a) => (
             <li key={a.id} className="flex flex-wrap items-start justify-between gap-2 py-3">
               <div className="min-w-0">
-                <p className="truncate font-semibold">{a.subject}</p>
-                <p className="truncate text-sm text-muted">From {a.from} · {a.mailbox}</p>
+                <p className="truncate font-semibold">New email in {a.mailbox}</p>
                 <p className="text-xs text-muted">{fmt(a.at)} · {a.channel === 'telegram' ? 'Telegram' : a.channel}</p>
               </div>
               <StatusBadge status={a.status} />
@@ -26,6 +25,9 @@ export default function ActivityCard({ activity }) {
           ))}
         </ul>
       )}
+      <p className="mt-4 border-t border-line pt-3 text-xs text-muted">
+        Delivery records are kept for 7 days. Sender and subject are not stored.
+      </p>
     </Card>
   )
 }
