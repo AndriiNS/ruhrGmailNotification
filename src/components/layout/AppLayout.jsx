@@ -2,6 +2,7 @@ import { NavLink, Outlet, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../hooks/useAuth'
 import Button from '../ui/Button'
 import SiteFooter from './SiteFooter'
+import AdminDemoToggle from '../common/AdminDemoToggle'
 import Logo from '../common/Logo'
 import DemoBanner from '../common/DemoBanner'
 import { cn } from '../../lib/cn'
@@ -49,6 +50,7 @@ export default function AppLayout() {
           </nav>
           <div className="flex items-center gap-3">
             <span className="hidden max-w-48 truncate text-sm text-muted sm:block">{user?.email}</span>
+            <AdminDemoToggle />
             <Button variant="secondary" onClick={onSignOut}>Sign out</Button>
           </div>
         </div>

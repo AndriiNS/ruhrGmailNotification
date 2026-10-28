@@ -5,11 +5,12 @@ import Dialog from '../ui/Dialog'
 import StatusBadge from '../common/StatusBadge'
 import FormMessage from '../common/FormMessage'
 import { channelErrorMessage } from '../../services/channel/errors'
-import { DEMO_MODE } from '../../lib/config'
+import { useAuth } from '../../hooks/useAuth'
 
 const fmt = (iso) => new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
 
 export default function TelegramCard({ telegram, actions }) {
+  const { demoActive } = useAuth()
   const [busy, setBusy] = useState('')
   const [pendingUrl, setPendingUrl] = useState(null)
   const [message, setMessage] = useState({ tone: 'error', text: '' })
@@ -57,7 +58,7 @@ export default function TelegramCard({ telegram, actions }) {
             <li>Come back here. This page updates once Telegram confirms the chat.</li>
           </ol>
           {pendingUrl && <Button href={pendingUrl} className="mt-4">Open Telegram</Button>}
-          {DEMO_MODE && (
+          {demoActive && (
             <div className="mt-4 rounded-control bg-warn-soft p-3 text-sm text-warn">
               <p><strong>Demo mode.</strong> There is no real bot link. This button only pretends you pressed Start.</p>
               <Button className="mt-2" variant="secondary" onClick={() => run('start', actions.simulateStart)} loading={busy === 'start'}>
@@ -92,7 +93,7 @@ export default function TelegramCard({ telegram, actions }) {
                   run('test', () => actions.sendTest({ outcome }), () =>
                     setMessage({
                       tone: 'success',
-                      text: DEMO_MODE
+                      text: demoActive
                         ? 'Demo mode: no message was sent to Telegram.'
                         : 'Telegram accepted the test message. Check your chat to confirm it arrived.',
                     }),
@@ -105,7 +106,7 @@ export default function TelegramCard({ telegram, actions }) {
             )}
             <Button variant="secondary" className="text-bad" onClick={() => setConfirmOpen(true)}>Disconnect</Button>
           </div>
-          {DEMO_MODE && status === 'connected' && (
+          {demoActive && status === 'connected' && (
             <label className="mt-3 block text-sm text-warn">
               <span className="font-semibold">Demo: simulate this test result</span>
               <select value={outcome} onChange={(e) => setOutcome(e.target.value)} className="mt-1 block h-10 rounded-control border border-line bg-paper px-3 text-ink">
@@ -149,7 +150,7 @@ export default function TelegramCard({ telegram, actions }) {
           }
         >
           Mailboxes that send alerts to Telegram will stop notifying you until you connect it again.
-          {DEMO_MODE && ' Demo mode: nothing real is disconnected.'}
+          {demoActive && ' Demo mode: nothing real is disconnected.'}
         </Dialog>
       )}
     </Card>

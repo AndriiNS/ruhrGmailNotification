@@ -8,9 +8,9 @@ const fmt = (iso) => new Date(iso).toLocaleDateString('en-GB', { day: 'numeric',
 
 function detail(s) {
   switch (s.status) {
-    case 'active': return `Renews on ${fmt(s.renewsOn)} for €${PLAN.priceEur.toFixed(2)}.`
-    case 'trial': return `Trial ends on ${fmt(s.trialEndsOn)}.`
-    case 'expired': return `Ended on ${fmt(s.endedOn)}. Alerts are off.`
+    case 'active': return s.renewsOn ? `Renews on ${fmt(s.renewsOn)} for €${PLAN.priceEur.toFixed(2)}.` : 'Your subscription is active.'
+    case 'trial': return s.trialEndsOn ? `Trial ends on ${fmt(s.trialEndsOn)}.` : 'You are on a trial.'
+    case 'expired': return s.endedOn ? `Ended on ${fmt(s.endedOn)}. Alerts are off.` : 'Your subscription ended. Alerts are off.'
     case 'payment_required': return 'The last payment did not go through.'
     default: return `€${PLAN.priceEur.toFixed(2)} per month, up to ${PLAN.maxMailboxes} mailboxes.`
   }

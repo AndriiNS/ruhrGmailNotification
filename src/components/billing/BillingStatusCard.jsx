@@ -7,10 +7,10 @@ const fmt = (iso) => new Date(iso).toLocaleDateString('en-GB', { day: 'numeric',
 
 const copy = {
   none: () => 'You do not have a subscription yet. Subscribe to start receiving alerts.',
-  active: (s) => `Your subscription renews on ${fmt(s.renewsOn)}.`,
-  canceling: (s) => `Your subscription ends on ${fmt(s.endsOn)}. Alerts continue until then.`,
+  active: (s) => (s.renewsOn ? `Your subscription renews on ${fmt(s.renewsOn)}.` : 'Your subscription is active.'),
+  canceling: (s) => (s.endsOn ? `Your subscription ends on ${fmt(s.endsOn)}. Alerts continue until then.` : 'Your subscription will end. Alerts continue until the end of the paid period.'),
   payment_required: () => 'The last payment did not go through.',
-  expired: (s) => `Your subscription ended on ${fmt(s.endedOn)}.`,
+  expired: (s) => (s.endedOn ? `Your subscription ended on ${fmt(s.endedOn)}.` : 'Your subscription has ended.'),
 }
 
 export default function BillingStatusCard({ subscription, onSubscribe, onManage, busy }) {

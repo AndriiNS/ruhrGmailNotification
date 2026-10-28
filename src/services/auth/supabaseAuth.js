@@ -1,13 +1,13 @@
 // Real authentication through Supabase Auth (email + password, email confirmation).
 // Interface matches mockAuth. getSession is async and subscribe() reports later changes.
-import { createClient } from '@supabase/supabase-js'
-import { SUPABASE_PUBLISHABLE_KEY, SUPABASE_URL } from '../../lib/config'
+import { getClient } from '../../lib/supabase'
 import { AuthServiceError } from './errors'
 
-let client
-const getClient = () => (client ??= createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY))
-
-const toUser = (session) => (session?.user ? { id: session.user.id, email: session.user.email, demo: false } : null)
+// app_metadata can only be changed server-side, so is_admin cannot be set by the user.
+const toUser = (session) =>
+  session?.user
+    ? { id: session.user.id, email: session.user.email, demo: false, isAdmin: session.user.app_metadata?.is_admin === true }
+    : null
 
 function mapError(error) {
   const code = error?.code || ''

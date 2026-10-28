@@ -8,10 +8,16 @@ export function requireUser(supabase) {
     try {
       const { data, error } = await supabase.auth.getUser(token)
       if (error || !data?.user) return res.status(401).json({ error: 'unauthorized' })
-      req.user = { id: data.user.id, email: data.user.email }
+      req.user = { id: data.user.id, email: data.user.email, isAdmin: data.user.app_metadata?.is_admin === true }
       next()
     } catch {
       res.status(503).json({ error: 'auth_unavailable' })
     }
   }
+}
+
+// Use after requireUser for admin-only endpoints. is_admin lives in app_metadata, which users cannot edit.
+export function requireAdmin(req, res, next) {
+  if (!req.user?.isAdmin) return res.status(403).json({ error: 'forbidden' })
+  next()
 }

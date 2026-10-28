@@ -31,7 +31,7 @@ test('protected route accepts a token Supabase verifies', async () => {
   const app = createApp(config, fakeSupabase(async (t) => ({ data: { user: { id: 'u1', email: 'a@b.co' } }, error: t === 'good' ? null : { message: 'bad' } })))
   const r = await request(app, '/api/me', { authorization: 'Bearer good' })
   assert.equal(r.status, 200)
-  assert.deepEqual(r.body.user, { id: 'u1', email: 'a@b.co' })
+  assert.deepEqual(r.body.user, { id: 'u1', email: 'a@b.co', isAdmin: false })
 })
 
 test('auth service outage returns 503, not a pass', async () => {

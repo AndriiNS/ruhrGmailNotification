@@ -10,9 +10,11 @@ import ChannelsDialog from '../components/mailboxes/ChannelsDialog'
 import ConnectMailboxDialog from '../components/mailboxes/ConnectMailboxDialog'
 import { useMailboxes } from '../hooks/useMailboxes'
 import { mailboxErrorMessage } from '../services/mailbox/errors'
-import { DEMO_MODE, PLAN } from '../lib/config'
+import { PLAN } from '../lib/config'
+import { useAuth } from '../hooks/useAuth'
 
 export default function MailboxesPage() {
+  const { demoActive } = useAuth()
   const { mailboxes, loadError, retry, connect, setChannels, disconnect } = useMailboxes()
   const [dialog, setDialog] = useState(null) // { type: 'connect'|'channels'|'disconnect', mailbox? }
   const [notice, setNotice] = useState('')
@@ -87,7 +89,7 @@ export default function MailboxesPage() {
           reconnect={dialog.mailbox}
           onConnect={connect}
           onClose={(ok) => {
-            if (ok) setNotice(DEMO_MODE ? 'Demo mailbox connected. Nothing real was connected.' : 'Mailbox connected.')
+            if (ok) setNotice(demoActive ? 'Demo mailbox connected. Nothing real was connected.' : 'Mailbox connected.')
             close()
           }}
         />
@@ -106,7 +108,7 @@ export default function MailboxesPage() {
           }
         >
           <p className="break-all"><strong>{dialog.mailbox.address}</strong></p>
-          <p className="mt-2">Alerts for this mailbox will stop and its access will be removed.{DEMO_MODE && ' Demo mode: nothing real is removed.'}</p>
+          <p className="mt-2">Alerts for this mailbox will stop and its access will be removed.{demoActive && ' Demo mode: nothing real is removed.'}</p>
           <div className="mt-3"><FormMessage>{disconnectError}</FormMessage></div>
         </Dialog>
       )}

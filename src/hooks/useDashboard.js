@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getDashboard } from '../services/dashboardService'
+import { dashboardService } from '../services/dashboardService'
 
 export function useDashboard(scenario) {
   const [attempt, setAttempt] = useState(0)
@@ -8,7 +8,7 @@ export function useDashboard(scenario) {
 
   useEffect(() => {
     let cancelled = false
-    getDashboard(scenario)
+    dashboardService.getDashboard(scenario)
       .then((data) => !cancelled && setResult({ key, status: 'ready', data }))
       .catch(() => !cancelled && setResult({ key, status: 'error', data: null }))
     return () => {

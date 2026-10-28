@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { AuthContext } from '../../hooks/authContext'
 import { authService } from '../../services/auth'
+import { isDemoActive, syncDemoFor } from '../../lib/demo'
 
 export default function AuthProvider({ children }) {
   // user: undefined while the session is still loading (real auth), null when signed out.
@@ -32,9 +33,14 @@ export default function AuthProvider({ children }) {
     setUser(null)
   }, [])
 
+  syncDemoFor(user) // idempotent: must happen before screens request data
+  const demoActive = isDemoActive()
+
   const value = useMemo(
     () => ({
       user,
+      isAdmin: Boolean(user?.isAdmin),
+      demoActive,
       signIn,
       signOut,
       signUp: authService.signUp,
@@ -42,7 +48,7 @@ export default function AuthProvider({ children }) {
       resendVerification: authService.resendVerification,
       updatePassword: authService.updatePassword,
     }),
-    [user, signIn, signOut],
+    [user, demoActive, signIn, signOut],
   )
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }

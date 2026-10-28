@@ -1,6 +1,6 @@
 // Central app configuration. Real values come from environment variables later.
-// DEMO_MODE stays true until real backend integrations exist.
-// While true, nothing in the UI may present a mock result as a real connection.
+// VITE_DEMO_MODE only matters without Supabase keys (offline UI development). With keys, demo data is admin-only (lib/demo.js).
+// Nothing in the UI may present a mock result as a real connection.
 export const DEMO_MODE = import.meta.env.VITE_DEMO_MODE !== 'false'
 
 export const PLAN = {

@@ -1,17 +1,10 @@
-// Interface the UI depends on (same in demo and real mode):
+// Interface the UI depends on:
 //   list() -> Mailbox[]
-//   connect({ provider, reconnectId?, outcome? }) -> Mailbox   (real: redirect to backend OAuth start,
-//        e.g. Gmail API via Google OAuth; later Microsoft Graph and vetted IMAP providers)
-//   setChannels(id, channelIds[]) -> Mailbox
-//   disconnect(id) -> void   (real: revoke access and delete stored tokens)
-import { DEMO_MODE } from '../../lib/config'
+//   connect({ provider, reconnectId?, outcome? }) -> Mailbox   (real, later: backend Gmail OAuth)
+//   setChannels(id, channelIds[]) -> Mailbox, disconnect(id) -> void
+// Demo (mock) or real is chosen per call, see lib/demo.js.
+import { pickService } from '../../lib/demo'
 import { mockMailbox } from './mockMailbox'
-import { MailboxServiceError } from './errors'
+import { realMailbox } from './realMailbox'
 
-const notConfigured = async () => {
-  throw new MailboxServiceError('not_configured')
-}
-
-export const mailboxService = DEMO_MODE
-  ? mockMailbox
-  : { list: notConfigured, connect: notConfigured, setChannels: notConfigured, disconnect: notConfigured }
+export const mailboxService = pickService(mockMailbox, realMailbox)

@@ -31,7 +31,14 @@ The backend must enforce all limits and statuses; the UI only displays them.
 ## Backend and database
 `server/` is the Node/Express backend; Supabase (project `mailping`) provides Postgres and Auth.
 See `server/README.md`. With `VITE_SUPABASE_URL` and `VITE_SUPABASE_PUBLISHABLE_KEY` set in `.env.local`,
-sign-in and sign-up use real Supabase Auth; the other screens still show labelled demo data.
+sign-in and sign-up use real Supabase Auth, and the dashboard, mailboxes, channels, billing status and
+settings read real data from Postgres (RLS). Actions that need the server (connect Gmail or Telegram,
+checkout, delete account) report "not set up yet" until they are built.
+
+### Admin and demo tools
+An account with `app_metadata.is_admin = true` (set in the database, never by the user) sees a
+"Demo tools" switch in the app header. On: screens use labelled mock data, so flows can be tested at any
+time. Off: real data. Regular users never see demo data.
 
 ## Proof of concept
 `poc/gmail-telegram/` — local Gmail → Telegram experiment (separate from the frontend).

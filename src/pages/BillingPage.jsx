@@ -10,9 +10,10 @@ import DemoBillingDialog from '../components/billing/DemoBillingDialog'
 import { useBilling } from '../hooks/useBilling'
 import { billingErrorMessage } from '../services/billing/errors'
 import { billingScenarioLabels } from '../data/billing'
-import { DEMO_MODE } from '../lib/config'
+import { useAuth } from '../hooks/useAuth'
 
 export default function BillingPage() {
+  const { demoActive } = useAuth()
   const { billing, loadError, reload, refresh, startCheckout, openPortal, demoSetScenario, demoCompleteCheckout } = useBilling()
   const [params, setParams] = useSearchParams()
   const [busy, setBusy] = useState(false)
@@ -41,7 +42,7 @@ export default function BillingPage() {
     try {
       const { url } = await (kind === 'checkout' ? startCheckout() : openPortal())
       if (url) window.location.assign(url)
-      else if (DEMO_MODE) setDemoDialog(kind)
+      else if (demoActive) setDemoDialog(kind)
     } catch (e) {
       setError(billingErrorMessage(e.code))
     } finally {
@@ -64,7 +65,7 @@ export default function BillingPage() {
   return (
     <>
       <PageHeader title="Billing" description="See your subscription and manage payment details.">
-        {DEMO_MODE && (
+        {demoActive && (
           <label className="text-sm">
             <span className="mb-1 block font-semibold">Demo data</span>
             <select

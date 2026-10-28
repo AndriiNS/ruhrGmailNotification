@@ -9,18 +9,17 @@ import ChannelsCard from '../components/dashboard/ChannelsCard'
 import ActivityCard from '../components/dashboard/ActivityCard'
 import { useAuth } from '../hooks/useAuth'
 import { useDashboard } from '../hooks/useDashboard'
-import { DEMO_MODE } from '../lib/config'
 import { scenarioLabels } from '../data/dashboard'
 
 export default function DashboardPage() {
-  const { user } = useAuth()
+  const { user, demoActive } = useAuth()
   const [scenario, setScenario] = useState('active')
   const { status, data, retry } = useDashboard(scenario)
 
   return (
     <>
       <PageHeader title="Dashboard" description={`Welcome back, ${user?.email}. Here is the state of your alerts.`}>
-        {DEMO_MODE && (
+        {demoActive && (
           <label className="text-sm">
             <span className="mb-1 block font-semibold">Demo data</span>
             <select

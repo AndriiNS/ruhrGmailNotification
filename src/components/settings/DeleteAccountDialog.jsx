@@ -4,11 +4,12 @@ import Button from '../ui/Button'
 import Input from '../ui/Input'
 import FormMessage from '../common/FormMessage'
 import { accountErrorMessage } from '../../services/account/errors'
-import { DEMO_MODE } from '../../lib/config'
+import { useAuth } from '../../hooks/useAuth'
 
 const WORD = 'DELETE'
 
 export default function DeleteAccountDialog({ onConfirm, onClose }) {
+  const { demoActive } = useAuth()
   const [typed, setTyped] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
@@ -39,7 +40,7 @@ export default function DeleteAccountDialog({ onConfirm, onClose }) {
       <p>
         This disconnects all mailboxes and channels and removes your account. It cannot be undone. Cancel your
         subscription in Billing first so you are not charged again.
-        {DEMO_MODE && ' Demo mode: nothing is actually deleted.'}
+        {demoActive && ' Demo mode: nothing is actually deleted.'}
       </p>
       <div className="mt-4 text-ink">
         <Input label={`Type ${WORD} to confirm`} value={typed} onChange={(e) => setTyped(e.target.value)} autoComplete="off" />

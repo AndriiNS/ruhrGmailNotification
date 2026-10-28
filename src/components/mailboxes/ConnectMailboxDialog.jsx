@@ -5,9 +5,10 @@ import Badge from '../ui/Badge'
 import FormMessage from '../common/FormMessage'
 import { providers, providerName } from '../../data/mailboxes'
 import { mailboxErrorMessage } from '../../services/mailbox/errors'
-import { DEMO_MODE } from '../../lib/config'
+import { useAuth } from '../../hooks/useAuth'
 
 export default function ConnectMailboxDialog({ reconnect, onConnect, onClose }) {
+  const { demoActive } = useAuth()
   const [step, setStep] = useState(reconnect ? 'authorize' : 'provider')
   const [provider, setProvider] = useState(reconnect?.provider ?? 'gmail')
   const [outcome, setOutcome] = useState('success')
@@ -37,7 +38,7 @@ export default function ConnectMailboxDialog({ reconnect, onConnect, onClose }) 
         step === 'provider' ? (
           <>{cancel}<Button onClick={() => setStep('authorize')}>Next</Button></>
         ) : (
-          <>{cancel}<Button onClick={connect} loading={loading}>{DEMO_MODE ? 'Continue in demo mode' : 'Continue with Google'}</Button></>
+          <>{cancel}<Button onClick={connect} loading={loading}>{demoActive ? 'Continue in demo mode' : 'Continue with Google'}</Button></>
         )
       }
     >
@@ -71,7 +72,7 @@ export default function ConnectMailboxDialog({ reconnect, onConnect, onClose }) 
             <li>You return here and the mailbox appears with its status.</li>
           </ol>
           <p>We never ask for your email password. You can withdraw access at any time in your Google account permissions.</p>
-          {DEMO_MODE && (
+          {demoActive && (
             <div className="rounded-control bg-warn-soft p-3 text-warn">
               <p><strong>Demo mode.</strong> This does not contact Google and connects no real mailbox. Choose a result to preview:</p>
               <label className="mt-2 block">
